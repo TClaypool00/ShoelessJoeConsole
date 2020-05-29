@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30104.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoelessJoe.App", "ShoelessJoe.App\ShoelessJoe.App.csproj", "{A00535BC-FDC8-4047-8229-68402156862D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoelessJoe.DataAccess", "ShoelessJoe.DataAccess\ShoelessJoe.DataAccess.csproj", "{93DFA62D-813B-4109-A755-03EC2D872173}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A00535BC-FDC8-4047-8229-68402156862D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A00535BC-FDC8-4047-8229-68402156862D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A00535BC-FDC8-4047-8229-68402156862D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A00535BC-FDC8-4047-8229-68402156862D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93DFA62D-813B-4109-A755-03EC2D872173}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93DFA62D-813B-4109-A755-03EC2D872173}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93DFA62D-813B-4109-A755-03EC2D872173}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93DFA62D-813B-4109-A755-03EC2D872173}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {23FB130B-E0BB-485E-9F28-D34751806E71}
+	EndGlobalSection
+EndGlobal
