@@ -1,12 +1,13 @@
-﻿using System;
+﻿using ShoelessJoe.App.Classes;
+using System;
 
 namespace ShoelessJoe.App
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Console.WriteLine("Hello World!");
+            UserClass.StartingPoint();
         }
     }
 }
