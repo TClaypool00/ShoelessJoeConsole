@@ -13,4 +13,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ShoelessJoe.DataAccess\ShoelessJoe.DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>
