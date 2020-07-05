@@ -32,8 +32,14 @@ namespace ShoelessJoe.App.Classes
 
             var userPassword = CheckPassword(newUser);
 
+            newUser.IsAdmin = false;
+
             Console.Write("Please enter your street address: ");
             newUser.Street = Console.ReadLine();
+            Console.WriteLine();
+
+            Console.Write("Please enter the city you leave in: ");
+            newUser.City = Console.ReadLine();
             Console.WriteLine();
 
             Console.Write("Please enter your state: ");
@@ -131,8 +137,9 @@ namespace ShoelessJoe.App.Classes
             }
             Console.WriteLine();
 
-            Console.WriteLine("Have you been here before? ");
+            Console.Write("Have you been here before? ");
             string startingUserInput = Console.ReadLine();
+            Console.WriteLine();
             if (startingUserInput == "y".ToLower())
                 return LogIn();
             else if (startingUserInput == "n".ToLower())
