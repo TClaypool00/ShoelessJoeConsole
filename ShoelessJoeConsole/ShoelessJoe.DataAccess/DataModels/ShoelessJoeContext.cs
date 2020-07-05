@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace ShoelessJoe.DataAccess.DataModels
 {
@@ -18,7 +16,6 @@ namespace ShoelessJoe.DataAccess.DataModels
         public virtual DbSet<Comments> Comments { get; set; }
         public virtual DbSet<Reply> Reply { get; set; }
         public virtual DbSet<Shoes> Shoes { get; set; }
-        public virtual DbSet<UserReplies> UserReplies { get; set; }
         public virtual DbSet<Users> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -48,10 +45,15 @@ namespace ShoelessJoe.DataAccess.DataModels
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.CommentUser)
+                entity.HasOne(d => d.Buyer)
                     .WithMany(p => p.Comments)
-                    .HasForeignKey(d => d.CommentUserId)
+                    .HasForeignKey(d => d.BuyerId)
                     .HasConstraintName("FK_Comments_Users");
+
+                entity.HasOne(d => d.Shoe)
+                    .WithMany(p => p.Comments)
+                    .HasForeignKey(d => d.ShoeId)
+                    .HasConstraintName("FK_Comments_Shoes");
             });
 
             modelBuilder.Entity<Reply>(entity =>
@@ -66,7 +68,13 @@ namespace ShoelessJoe.DataAccess.DataModels
                 entity.HasOne(d => d.Comment)
                     .WithMany(p => p.Reply)
                     .HasForeignKey(d => d.CommentId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Reply_Comments");
+
+                entity.HasOne(d => d.ReplyUser)
+                    .WithMany(p => p.Reply)
+                    .HasForeignKey(d => d.ReplyUserId)
+                    .HasConstraintName("FK_Reply_Users");
             });
 
             modelBuilder.Entity<Shoes>(entity =>
@@ -77,11 +85,13 @@ namespace ShoelessJoe.DataAccess.DataModels
                     .HasName("UQ__Shoes__5A835BF4B6C5383A")
                     .IsUnique();
 
-                entity.Property(e => e.ShoeId).ValueGeneratedNever();
-
                 entity.Property(e => e.Color)
                     .IsRequired()
                     .HasMaxLength(40)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Description)
+                    .IsRequired()
                     .IsUnicode(false);
 
                 entity.Property(e => e.LeftSize).HasColumnType("decimal(18, 0)");
@@ -97,23 +107,11 @@ namespace ShoelessJoe.DataAccess.DataModels
                     .IsUnicode(false);
 
                 entity.Property(e => e.RightSize).HasColumnType("decimal(18, 0)");
-            });
-
-            modelBuilder.Entity<UserReplies>(entity =>
-            {
-                entity.HasKey(e => e.ReplyManagerId);
-
-                entity.HasOne(d => d.Reply)
-                    .WithMany(p => p.UserReplies)
-                    .HasForeignKey(d => d.ReplyId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_UserReplies_Reply");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.UserReplies)
+                    .WithMany(p => p.Shoes)
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_UserReplies_Users");
+                    .HasConstraintName("FK_Shoes_Users");
             });
 
             modelBuilder.Entity<Users>(entity =>
@@ -123,8 +121,6 @@ namespace ShoelessJoe.DataAccess.DataModels
                 entity.HasIndex(e => e.UserId)
                     .HasName("UQ__Users__1788CC4D4E69B6F5")
                     .IsUnique();
-
-                entity.Property(e => e.UserId).ValueGeneratedNever();
 
                 entity.Property(e => e.City)
                     .IsRequired()
