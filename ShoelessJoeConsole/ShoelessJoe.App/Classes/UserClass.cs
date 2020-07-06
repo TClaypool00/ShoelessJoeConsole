@@ -61,6 +61,7 @@ namespace ShoelessJoe.App.Classes
             Thread.Sleep(500);
 
             Console.WriteLine("You have sucessfully regeristered");
+            LogIn();
 
             return newUser;
         }
@@ -114,7 +115,7 @@ namespace ShoelessJoe.App.Classes
                         case "yes":
                         case "Yes":
                         default:
-                            return StoreClass.MainMenu();
+                            return StoreClass.PromptUser();
                     }
                 }
                 return user;
@@ -141,7 +142,7 @@ namespace ShoelessJoe.App.Classes
             string startingUserInput = Console.ReadLine();
             Console.WriteLine();
             if (startingUserInput == "y".ToLower())
-                return StoreClass.MainMenu();
+                return StoreClass.PromptUser();
             else if (startingUserInput == "n".ToLower())
                 return Register();
 
@@ -152,22 +153,25 @@ namespace ShoelessJoe.App.Classes
         {
             try
             {
-                int userOptions = 0;
-
                 Console.Write("Press the coresponding number:");
+                int userOptions = int.Parse(Console.ReadLine());
                 switch (userOptions)
                 {
                     case 1:
-                        Console.WriteLine("The About Page");
+                        Navigation.AboutPage();
                         break;
                     case 2:
-                        Console.WriteLine("The browse page");
+                        Navigation.BrowsePage();
                         break;
                     case 3:
-                        Console.WriteLine("Shoe form");
+                        Navigation.ShoeFormPage();
                         break;
                     case 4:
-                        Console.WriteLine("Tech page");
+                        Navigation.TechPage();
+                        break;
+                    case 0:
+                        Console.WriteLine("Good-bye! Come again!");
+                        Environment.Exit(0);
                         break;
                     default:
                         Console.WriteLine("That is not an options. Try again");
