@@ -34,7 +34,6 @@ namespace ShoelessJoe.App.Classes
             ShoeClass.DisplayShoe();
 
             Console.WriteLine();
-            PressKeyToContenue(user);
         }
 
         public static void ShoeFormPage(Users user)

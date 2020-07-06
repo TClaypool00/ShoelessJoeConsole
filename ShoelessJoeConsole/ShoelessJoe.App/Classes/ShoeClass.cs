@@ -1,15 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShoelessJoe.DataAccess.DataModels;
 using System;
+using System.Linq;
 using System.Threading;
 
 namespace ShoelessJoe.App.Classes
 {
     public class ShoeClass
     {
+        private static readonly ShoelessJoeContext ctx = new ShoelessJoeContext();
+
         public static void AddShoe(Users currentUseer)
         {
-            using var ctx = new ShoelessJoeContext();
             var newShoe = new Shoes();
 
             Console.Write("What is the name of the manufacter? ");
@@ -77,17 +79,35 @@ namespace ShoelessJoe.App.Classes
 
         public static void DisplayShoe()
         {
-            using var ctx = new ShoelessJoeContext();
-
             var shoes = ctx.Shoes
                 .Include(u => u.User);
 
             foreach (var item in shoes)
             {
-                Console.WriteLine($"{item.ShoeId}. Manufacter: {item.Manufacter} Model: {item.Model} Owner: {item.User.FirstName} {item.User.LastName}");
+                Console.WriteLine($"{item.ShoeId}. Manufacter: {item.IsSold} Model: {item.BothShoes} Owner: {item.User.FirstName} {item.User.LastName}");
                 Console.WriteLine();
             }
 
+            Console.Write("Please enter a number a number: ");
+            int userNumber = int.Parse(Console.ReadLine());
+            ShoeDetails(userNumber);
+        }
+
+        public static void ShoeDetails(int id)
+        {
+            var shoe = ctx.Shoes
+                .Include(u => u.User)
+                .FirstOrDefault(s => s.ShoeId == id);
+
+            Console.WriteLine($" Manufacter: {shoe.Manufacter} \n Model: {shoe.Model} \n Color: {shoe.Color} \n {shoe.Gender} \n Left Size: {shoe.LeftSize} Right Size: {shoe.RightSize} \n Description: {shoe.Description} \n Owner: {shoe.User.FirstName} {shoe.User.LastName}");
+
+            Console.WriteLine();
+            Console.Write("Would you to select these shoes? (y/n)");
+            string userSelect = Console.ReadLine();
+            if (userSelect == "y".ToLower())
+                Console.WriteLine("OK!");
+            else
+                DisplayShoe();
         }
     }
 }
