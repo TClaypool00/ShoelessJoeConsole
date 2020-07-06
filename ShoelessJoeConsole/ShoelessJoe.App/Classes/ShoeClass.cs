@@ -77,7 +77,7 @@ namespace ShoelessJoe.App.Classes
             return currentShoe.Gender;
         }
 
-        public static void DisplayShoe()
+        public static Shoes DisplayShoe(Users user)
         {
             var shoes = ctx.Shoes
                 .Include(u => u.User);
@@ -88,26 +88,45 @@ namespace ShoelessJoe.App.Classes
                 Console.WriteLine();
             }
 
-            Console.Write("Please enter a number a number: ");
+            Console.Write("Please enter a number a number (or press 001 to go back): ");
             int userNumber = int.Parse(Console.ReadLine());
-            ShoeDetails(userNumber);
+            if (userNumber == 001)
+                StoreClass.MainMenu(user);
+               
+            var shoe = ShoeDetails(userNumber, user);
+
+            CommentClass.AddComment(user, userNumber);
+
+            return shoe;
         }
 
-        public static void ShoeDetails(int id)
+        public static Shoes ShoeDetails(int id, Users user)
         {
-            var shoe = ctx.Shoes
-                .Include(u => u.User)
-                .FirstOrDefault(s => s.ShoeId == id);
+            try
+            {
+                var shoe = ctx.Shoes
+                    .Include(u => u.User)
+                    .FirstOrDefault(s => s.ShoeId == id);
 
-            Console.WriteLine($" Manufacter: {shoe.Manufacter} \n Model: {shoe.Model} \n Color: {shoe.Color} \n {shoe.Gender} \n Left Size: {shoe.LeftSize} Right Size: {shoe.RightSize} \n Description: {shoe.Description} \n Owner: {shoe.User.FirstName} {shoe.User.LastName}");
+                Console.WriteLine($" Manufacter: {shoe.Manufacter} \n Model: {shoe.Model} \n Color: {shoe.Color} \n {shoe.Gender} \n Left Size: {shoe.LeftSize} Right Size: {shoe.RightSize} \n Description: {shoe.Description} \n Owner: {shoe.User.FirstName} {shoe.User.LastName}");
 
-            Console.WriteLine();
-            Console.Write("Would you to select these shoes? (y/n)");
-            string userSelect = Console.ReadLine();
-            if (userSelect == "y".ToLower())
-                Console.WriteLine("OK!");
-            else
-                DisplayShoe();
+                Console.WriteLine();
+                Console.Write("Would you to select these shoes? (y/n)");
+                string userSelect = Console.ReadLine();
+                if (userSelect == "y".ToLower())
+                    return shoe;
+                else
+                    return DisplayShoe(user);
+            }
+            catch(NullReferenceException)
+            {
+                Console.Write("Shoe Does not exist. Would you like to try again? (y/n) ");
+                string shoeError = Console.ReadLine();
+                if (shoeError == "y".ToLower())
+                    return ShoeDetails(id, user);
+                else
+                    return DisplayShoe(user);
+            }
         }
     }
 }

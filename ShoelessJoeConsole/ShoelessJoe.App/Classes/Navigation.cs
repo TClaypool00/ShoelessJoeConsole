@@ -31,9 +31,10 @@ namespace ShoelessJoe.App.Classes
             Console.WriteLine(browseHeader);
             UnderlineMessage(browseHeader);
             Console.WriteLine();
-            ShoeClass.DisplayShoe();
+            ShoeClass.DisplayShoe(user);
 
             Console.WriteLine();
+            StoreClass.MainMenu(user);
         }
 
         public static void ShoeFormPage(Users user)

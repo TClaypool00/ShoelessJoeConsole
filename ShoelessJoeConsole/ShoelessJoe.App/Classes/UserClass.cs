@@ -128,7 +128,7 @@ namespace ShoelessJoe.App.Classes
         {
             try
             {
-                Console.Write("Press the coresponding number:");
+                Console.Write("Press the coresponding number: ");
                 int userOptions = int.Parse(Console.ReadLine());
                 switch (userOptions)
                 {
