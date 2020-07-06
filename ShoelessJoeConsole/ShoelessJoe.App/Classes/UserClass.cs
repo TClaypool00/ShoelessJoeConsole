@@ -96,33 +96,31 @@ namespace ShoelessJoe.App.Classes
             using var ctx = new ShoelessJoeContext();
             try
             {
-                Console.WriteLine("Please enter your email address? ");
+                Console.Write("Please enter your email address: ");
                 string email = Console.ReadLine();
-                Console.WriteLine("Plase enter your password");
+                Console.WriteLine();
+
+                Console.Write("Plase enter your password: ");
                 string password = Console.ReadLine();
+                Console.WriteLine();
 
                 var user = ctx.Users.FirstOrDefault(u => u.Email == email);
                 if (user.Password != password)
                 {
                     Console.WriteLine("Sorry Username and/or password is incorrect. Would you like to try again? (y/n)");
-                    string userOldNew = Console.ReadLine();
-                    switch (userOldNew)
-                    {
-                        case "no":
-                        case "No":
-                            return Register();
-                        case "yes":
-                        case "Yes":
-                        default:
-                            return LogIn();
-                    }
                 }
                 return user;
             }
             catch (NullReferenceException)
             {
-                Console.WriteLine("Could find that user");
-                return Register();
+                Console.WriteLine();
+                Console.Write("Could find that user. Would you like to try again?(y/n) ");
+                string tryAgain = Console.ReadLine();
+
+                if (tryAgain == "y".ToLower())
+                    return LogIn();
+                else
+                    return Register();
             }
         }
 

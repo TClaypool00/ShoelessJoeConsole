@@ -8,11 +8,12 @@ namespace ShoelessJoe.App
     {
         static void Main()
         {
-            _ = new Users();
-
-            Console.WriteLine("Have you been here before? (y/n)");
-            string userInput = Console.ReadLine();
             Users currentUser;
+            
+            Console.Write("Have you been here before? (y/n) ");
+            string userInput = Console.ReadLine();
+            Console.WriteLine();
+            
             if (userInput == "y".ToLower())
                 currentUser = UserClass.LogIn();
             else
