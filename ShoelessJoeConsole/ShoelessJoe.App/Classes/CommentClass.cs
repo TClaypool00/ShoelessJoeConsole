@@ -1,5 +1,7 @@
-﻿using ShoelessJoe.DataAccess.DataModels;
+﻿using Microsoft.EntityFrameworkCore;
+using ShoelessJoe.DataAccess.DataModels;
 using System;
+using System.Linq;
 using System.Threading;
 
 namespace ShoelessJoe.App.Classes
@@ -31,6 +33,21 @@ namespace ShoelessJoe.App.Classes
             ctx.Comments.Add(newComment);
             ctx.SaveChanges();
             Thread.Sleep(500);
+        }
+
+        public static void CurrentUserBuyComments(Users user)
+        {
+            var currentUserBuyComments = ctx.Comments
+                .Include(u => u.Buyer)
+                .Include(s => s.Shoe)
+                .ThenInclude(u => u.User)
+                .Where(a => a.Buyer.UserId == user.UserId);
+
+            foreach (var item in currentUserBuyComments)
+            {
+                Console.WriteLine($"{item.CommentId}. Comment Head: {item.MessageHead}  Shoe Owner: {item.Shoe.User.FirstName} {item.Shoe.User.LastName}");
+                Console.WriteLine();
+            }
         }
     }
 }

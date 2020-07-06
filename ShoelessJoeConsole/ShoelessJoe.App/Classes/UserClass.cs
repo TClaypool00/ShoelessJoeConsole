@@ -144,6 +144,9 @@ namespace ShoelessJoe.App.Classes
                     case 4:
                         Navigation.TechPage(user);
                         break;
+                    case 5:
+                        Navigation.PotentialBuyComments(user);
+                        break;
                     case 0:
                         Console.WriteLine("Good-bye! Come again!");
                         Environment.Exit(0);

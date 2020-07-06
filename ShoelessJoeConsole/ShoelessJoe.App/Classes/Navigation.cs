@@ -63,6 +63,16 @@ namespace ShoelessJoe.App.Classes
             PressKeyToContenue(user);
         }
 
+        public static void PotentialBuyComments(Users user)
+        {
+            string myCommentsHeader = "My Comments";
+            UnderlineMessage(myCommentsHeader);
+            Console.WriteLine();
+
+            CommentClass.CurrentUserBuyComments(user);
+
+            PressKeyToContenue(user);
+        }
 
         public static void UnderlineMessage(string message)
         {

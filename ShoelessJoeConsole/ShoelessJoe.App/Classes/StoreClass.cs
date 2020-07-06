@@ -10,7 +10,7 @@ namespace ShoelessJoe.App.Classes
             Console.WriteLine($"Hello, {user.FirstName}!");
             Console.WriteLine();
             var userOptions = new UserClass();
-            string[] menuSelection = { "About Page", "Browse Page", "Shoe Form", "Tech Page" };
+            string[] menuSelection = { "About Page", "Browse Page", "Shoe Form", "Tech Page", "My Potential Buys", "My Potential Sells", "My Shoes" };
 
             Console.WriteLine("Below are a list of the following pages you can visit");
 
