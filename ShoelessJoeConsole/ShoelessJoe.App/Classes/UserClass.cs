@@ -61,7 +61,6 @@ namespace ShoelessJoe.App.Classes
             Thread.Sleep(500);
 
             Console.WriteLine("You have sucessfully regeristered");
-            LogIn();
 
             return newUser;
         }
@@ -115,7 +114,7 @@ namespace ShoelessJoe.App.Classes
                         case "yes":
                         case "Yes":
                         default:
-                            return StoreClass.PromptUser();
+                            return LogIn();
                     }
                 }
                 return user;
@@ -127,29 +126,7 @@ namespace ShoelessJoe.App.Classes
             }
         }
 
-        public static Users StartingPoint()
-        {
-            string message = "Welcome to ShoelessJoe Console Application!";
-            Console.WriteLine(message);
-
-            for (int i = 0; i < message.Length; i++)
-            {
-                Console.Write("-");
-            }
-            Console.WriteLine();
-
-            Console.Write("Have you been here before? ");
-            string startingUserInput = Console.ReadLine();
-            Console.WriteLine();
-            if (startingUserInput == "y".ToLower())
-                return StoreClass.PromptUser();
-            else if (startingUserInput == "n".ToLower())
-                return Register();
-
-            return StartingPoint();
-        }
-
-        public int UserChooses()
+        public int UserChooses(Users user)
         {
             try
             {
@@ -164,7 +141,7 @@ namespace ShoelessJoe.App.Classes
                         Navigation.BrowsePage();
                         break;
                     case 3:
-                        Navigation.ShoeFormPage();
+                        Navigation.ShoeFormPage(user);
                         break;
                     case 4:
                         Navigation.TechPage();
@@ -175,7 +152,7 @@ namespace ShoelessJoe.App.Classes
                         break;
                     default:
                         Console.WriteLine("That is not an options. Try again");
-                        UserChooses();
+                        UserChooses(user);
                         break;
                 }
 
@@ -184,7 +161,7 @@ namespace ShoelessJoe.App.Classes
             catch(FormatException)
             {
                 Console.WriteLine("You must enter a number. Try again.");
-                return UserChooses();
+                return UserChooses(user);
             }
         }
     }

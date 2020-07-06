@@ -1,9 +1,11 @@
-﻿using System;
+﻿using ShoelessJoe.DataAccess.DataModels;
+using System;
 
 namespace ShoelessJoe.App.Classes
 {
     public class Navigation
     {
+        private static readonly Users currentUser = new Users();
         public static void AboutPage()
         {
             string aboutHeader = "About Page";
@@ -30,14 +32,14 @@ namespace ShoelessJoe.App.Classes
             PressKeyToContenue();
         }
 
-        public static void ShoeFormPage()
+        public static void ShoeFormPage(Users currentUser)
         {
             string shoeFormHeader = "Shoe Form Page";
 
             Console.WriteLine(shoeFormHeader);
             UnderlineMessage(shoeFormHeader);
             Console.WriteLine();
-            Console.WriteLine(" This is the Sheo Form Page!");
+            ShoeClass.AddShoe(currentUser);
 
             Console.WriteLine();
             PressKeyToContenue();
@@ -70,7 +72,7 @@ namespace ShoelessJoe.App.Classes
         {
             Console.Write("Press any key to back to the main menu");
             Console.ReadLine();
-            StoreClass.MainMenu();
+            StoreClass.MainMenu(currentUser);
         }
     }
 }

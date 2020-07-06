@@ -1,7 +1,9 @@
-﻿namespace ShoelessJoe.App.Classes
+﻿using ShoelessJoe.DataAccess.DataModels;
+
+namespace ShoelessJoe.App.Classes
 {
     public interface IChoice
     {
-        int UserChooses();
+        int UserChooses(Users user);
     }
 }

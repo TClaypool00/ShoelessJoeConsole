@@ -5,19 +5,10 @@ namespace ShoelessJoe.App.Classes
 {
     public class StoreClass
     {
-        public static Users PromptUser()
+        public static void MainMenu(Users user)
         {
-            var currentUser = UserClass.LogIn();
+            Console.WriteLine($"Hello, {user.FirstName}!");
             Console.WriteLine();
-            Console.WriteLine($"Hello, {currentUser.FirstName }!");
-            MainMenu();
-            
-
-            return currentUser;
-        }
-
-        public static void MainMenu()
-        {
             var userOptions = new UserClass();
             string[] menuSelection = { "About Page", "Browse Page", "Shoe Form", "Tech Page" };
 
@@ -30,7 +21,7 @@ namespace ShoelessJoe.App.Classes
             Console.WriteLine("0. Exit");
             Console.WriteLine();
 
-            userOptions.UserChooses();
+            userOptions.UserChooses(user);
         }
     }
 }
