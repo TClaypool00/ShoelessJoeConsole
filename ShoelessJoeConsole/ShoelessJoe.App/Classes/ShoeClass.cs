@@ -1,4 +1,5 @@
-﻿using ShoelessJoe.DataAccess.DataModels;
+﻿using Microsoft.EntityFrameworkCore;
+using ShoelessJoe.DataAccess.DataModels;
 using System;
 using System.Threading;
 
@@ -72,6 +73,21 @@ namespace ShoelessJoe.App.Classes
                 currentShoe.Gender = false;
 
             return currentShoe.Gender;
+        }
+
+        public static void DisplayShoe()
+        {
+            using var ctx = new ShoelessJoeContext();
+
+            var shoes = ctx.Shoes
+                .Include(u => u.User);
+
+            foreach (var item in shoes)
+            {
+                Console.WriteLine($"{item.ShoeId}. Manufacter: {item.Manufacter} Model: {item.Model} Owner: {item.User.FirstName} {item.User.LastName}");
+                Console.WriteLine();
+            }
+
         }
     }
 }

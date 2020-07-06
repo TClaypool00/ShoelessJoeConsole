@@ -31,7 +31,7 @@ namespace ShoelessJoe.App.Classes
             Console.WriteLine(browseHeader);
             UnderlineMessage(browseHeader);
             Console.WriteLine();
-            Console.WriteLine(" This is the browse Page!");
+            ShoeClass.DisplayShoe();
 
             Console.WriteLine();
             PressKeyToContenue(user);
