@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace ShoelessJoe.App.Classes
 {
-    public class UserClass
+    public class UserClass: IChoice
     {
         /// <summary>
         /// Registers the user by asking him or her to add their info
@@ -114,7 +114,7 @@ namespace ShoelessJoe.App.Classes
                         case "yes":
                         case "Yes":
                         default:
-                            return LogIn();
+                            return StoreClass.MainMenu();
                     }
                 }
                 return user;
@@ -141,11 +141,47 @@ namespace ShoelessJoe.App.Classes
             string startingUserInput = Console.ReadLine();
             Console.WriteLine();
             if (startingUserInput == "y".ToLower())
-                return LogIn();
+                return StoreClass.MainMenu();
             else if (startingUserInput == "n".ToLower())
                 return Register();
 
             return StartingPoint();
+        }
+
+        public int UserChooses()
+        {
+            try
+            {
+                int userOptions = 0;
+
+                Console.Write("Press the coresponding number:");
+                switch (userOptions)
+                {
+                    case 1:
+                        Console.WriteLine("The About Page");
+                        break;
+                    case 2:
+                        Console.WriteLine("The browse page");
+                        break;
+                    case 3:
+                        Console.WriteLine("Shoe form");
+                        break;
+                    case 4:
+                        Console.WriteLine("Tech page");
+                        break;
+                    default:
+                        Console.WriteLine("That is not an options. Try again");
+                        UserChooses();
+                        break;
+                }
+
+                return userOptions;
+            }
+            catch(FormatException)
+            {
+                Console.WriteLine("You must enter a number. Try again.");
+                return UserChooses();
+            }
         }
     }
 }
