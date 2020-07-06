@@ -135,16 +135,16 @@ namespace ShoelessJoe.App.Classes
                 switch (userOptions)
                 {
                     case 1:
-                        Navigation.AboutPage();
+                        Navigation.AboutPage(user);
                         break;
                     case 2:
-                        Navigation.BrowsePage();
+                        Navigation.BrowsePage(user);
                         break;
                     case 3:
                         Navigation.ShoeFormPage(user);
                         break;
                     case 4:
-                        Navigation.TechPage();
+                        Navigation.TechPage(user);
                         break;
                     case 0:
                         Console.WriteLine("Good-bye! Come again!");
