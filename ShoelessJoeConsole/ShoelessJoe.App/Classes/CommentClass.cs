@@ -42,11 +42,34 @@ namespace ShoelessJoe.App.Classes
                 .Include(s => s.Shoe)
                 .ThenInclude(u => u.User)
                 .Where(a => a.Buyer.UserId == user.UserId);
+            if (currentUserBuyComments is null)
+                Console.WriteLine("You have no comments");
+            else {
+                foreach (var item in currentUserBuyComments)
+                {
+                    Console.WriteLine($"{item.CommentId}. Comment Head: {item.MessageHead}  Shoe Owner: {item.Shoe.User.FirstName} {item.Shoe.User.LastName}");
+                    Console.WriteLine();
+                }
+            }
+        }
 
-            foreach (var item in currentUserBuyComments)
+        public static void CurrentUserSellComment(Users user)
+        {
+            var currentUserBuyComments = ctx.Comments
+                .Include(u => u.Buyer)
+                .Include(s => s.Shoe)
+                .ThenInclude(u => u.User)
+                .Where(a => a.Shoe.User.UserId == user.UserId);
+
+            if (currentUserBuyComments is null)
+                Console.WriteLine("You have no comments");
+            else
             {
-                Console.WriteLine($"{item.CommentId}. Comment Head: {item.MessageHead}  Shoe Owner: {item.Shoe.User.FirstName} {item.Shoe.User.LastName}");
-                Console.WriteLine();
+                foreach (var item in currentUserBuyComments)
+                {
+                    Console.WriteLine($"{item.CommentId}. Comment Head: {item.MessageHead}  Potential Buyer: {item.Buyer.FirstName} {item.Buyer.LastName}");
+                    Console.WriteLine();
+                }
             }
         }
     }

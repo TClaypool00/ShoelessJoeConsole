@@ -22,6 +22,7 @@ namespace ShoelessJoe.App.Classes
             Console.WriteLine();
 
             userOptions.UserChooses(user);
+            Console.WriteLine();
         }
     }
 }

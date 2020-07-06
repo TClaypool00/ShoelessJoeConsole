@@ -65,11 +65,26 @@ namespace ShoelessJoe.App.Classes
 
         public static void PotentialBuyComments(Users user)
         {
-            string myCommentsHeader = "My Comments";
+            string myCommentsHeader = "Potential Buy Comments";
+
+            Console.WriteLine(myCommentsHeader);
             UnderlineMessage(myCommentsHeader);
             Console.WriteLine();
 
             CommentClass.CurrentUserBuyComments(user);
+
+            PressKeyToContenue(user);
+        }
+
+        public static void PotentialSellcomments(Users user)
+        {
+            string mySellComments = "Potential Sell Comments";
+
+            Console.WriteLine(mySellComments);
+            UnderlineMessage(mySellComments);
+            Console.WriteLine();
+
+            CommentClass.CurrentUserSellComment(user);
 
             PressKeyToContenue(user);
         }
