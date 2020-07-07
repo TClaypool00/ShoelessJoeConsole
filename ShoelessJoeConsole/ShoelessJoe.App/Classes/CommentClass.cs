@@ -35,6 +35,18 @@ namespace ShoelessJoe.App.Classes
             Thread.Sleep(500);
         }
 
+        public static void DeleteComment(int id)
+        {
+            var comment = ctx.Comments
+                .Include(u => u.Buyer)
+                .Include(s => s.Shoe)
+                .ThenInclude(u => u.User)
+                .FirstOrDefault(a => a.CommentId == id);
+            ctx.Comments.Remove(comment);
+            ctx.SaveChanges();
+            Console.WriteLine("Comment has been deleted");
+        }
+
         public static void CurrentUserBuyComments(Users user)
         {
             var currentUserBuyComments = ctx.Comments
@@ -140,24 +152,30 @@ namespace ShoelessJoe.App.Classes
                     break;
                 case "cancel":
                 case "Cancel":
-                    Console.WriteLine("The comment will be deleted");
+                    DeleteComment(comment.CommentId);
                     break;
                 case "001":
                     Navigation.BackToMainMenu(user, option);
                     break;
                 case "approve":
                 case "Approve":
-                    if(comment.Shoe.User.UserId == user.UserId)
-                        Console.WriteLine("The comment was approved");
+                    if (comment.Shoe.User.UserId == user.UserId)
+                        DeleteComment(comment.CommentId);
                     else
+                    {
                         Console.WriteLine("You can not do that");
+                        UserSelects(option, comment, user);
+                    }
                     break;
                 case "deny":
                 case "Deny":
                     if (comment.Shoe.User.UserId == user.UserId)
-                        Console.WriteLine("The comment was denied");
+                        DeleteComment(comment.CommentId);
                     else
+                    {
                         Console.WriteLine("You can not do that");
+                        UserSelects(option, comment, user);
+                    }
                     break;
                 default:
                     Console.WriteLine("Not an option. Please try again");
