@@ -86,6 +86,17 @@ namespace ShoelessJoe.App.Classes
             
         }
 
+        public static void MyShoes(Users user)
+        {
+            string myShoes = "My Shoes";
+
+            Console.WriteLine(myShoes);
+            UnderlineMessage(myShoes);
+            Console.WriteLine();
+
+            CurrentUser.MyShoes(user);
+        }
+
         public static void UnderlineMessage(string message)
         {
             for (int i = 0; i <= message.Length; i++)

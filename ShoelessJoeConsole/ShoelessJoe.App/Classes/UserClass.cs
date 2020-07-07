@@ -31,6 +31,9 @@ namespace ShoelessJoe.App.Classes
                     case 6:
                         Navigation.PotentialSellcomments(user);
                         break;
+                    case 7:
+                        Navigation.MyShoes(user);
+                        break;
                     case 0:
                         Console.WriteLine("Good-bye! Come again!");
                         Environment.Exit(0);

@@ -77,6 +77,18 @@ namespace ShoelessJoe.App.Classes
             return currentShoe.Gender;
         }
 
+        public static Shoes DeleteShoe(Shoes shoe)
+        {
+            var shoes = ctx.Shoes
+                .Include(u => u.User)
+                .FirstOrDefault(a => a.ShoeId == shoe.ShoeId);
+
+            ctx.Shoes.Remove(shoe);
+            ctx.SaveChanges();
+
+            return shoe;
+        }
+
         public static Shoes DisplayShoe(Users user)
         {
             var shoes = ctx.Shoes
@@ -88,9 +100,7 @@ namespace ShoelessJoe.App.Classes
                 Console.WriteLine();
             }
 
-            Console.Write("Please enter a number a number (or press 001 to go back): ");
-            int userNumber = int.Parse(Console.ReadLine());
-            Navigation.BackToMainMenu(user, userNumber);
+            int userNumber = UserOptions(user);
                
             var shoe = ShoeDetails(userNumber, user);
 
@@ -110,12 +120,33 @@ namespace ShoelessJoe.App.Classes
                 Console.WriteLine($" Manufacter: {shoe.Manufacter} \n Model: {shoe.Model} \n Color: {shoe.Color} \n {shoe.Gender} \n Left Size: {shoe.LeftSize} Right Size: {shoe.RightSize} \n Description: {shoe.Description} \n Owner: {shoe.User.FirstName} {shoe.User.LastName}");
 
                 Console.WriteLine();
-                Console.Write("Would you to select these shoes? (y/n)");
-                string userSelect = Console.ReadLine();
-                if (userSelect == "y".ToLower())
-                    return shoe;
+                string userSelect;
+                if (user.UserId != shoe.User.UserId)
+                {
+                    userSelect = Console.ReadLine();
+                    Console.Write("Would you to select these shoes? (y/n)");
+
+                    if (userSelect == "y".ToLower())
+                        return shoe;
+                    else
+                        return DisplayShoe(user);
+                }
                 else
-                    return DisplayShoe(user);
+                {
+                    Console.WriteLine("You can delete this shoe by typing 'delete'");
+                    Console.WriteLine("Or go back to my shoes by typing 'shoes'");
+                    userSelect = Console.ReadLine();
+                    if (userSelect == "delete".ToLower())
+                        return DeleteShoe(shoe);
+                    else if(userSelect == "shoes".ToLower())
+                        return DisplayShoe(user);
+                    else
+                    {
+                        Console.WriteLine("Not an option. Try again.");
+                        return ShoeDetails(id, user);
+                    }
+
+                }
             }
             catch(NullReferenceException)
             {
@@ -126,6 +157,15 @@ namespace ShoelessJoe.App.Classes
                 else
                     return DisplayShoe(user);
             }
+        }
+
+        public static int UserOptions(Users user)
+        {
+            Console.Write("Please enter a number a number (or press 001 to go back): ");
+            int userNumber = int.Parse(Console.ReadLine());
+            Navigation.BackToMainMenu(user, userNumber);
+
+            return userNumber;
         }
     }
 }
