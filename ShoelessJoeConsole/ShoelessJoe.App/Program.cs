@@ -15,11 +15,11 @@ namespace ShoelessJoe.App
             Console.WriteLine();
             
             if (userInput == "y".ToLower())
-                currentUser = UserClass.LogIn();
+                currentUser = AuthSystem.LogIn();
             else
             {
-                UserClass.Register();
-                currentUser = UserClass.LogIn();
+                AuthSystem.Register();
+                currentUser = AuthSystem.LogIn();
             }
 
             StoreClass.MainMenu(currentUser);
