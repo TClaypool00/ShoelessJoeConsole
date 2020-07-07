@@ -107,5 +107,11 @@ namespace ShoelessJoe.App.Classes
             if (choice == 001)
                 StoreClass.MainMenu(user);
         }
+
+        public static void BackToMainMenu(Users user, string choice)
+        {
+            if (choice == "001")
+                StoreClass.MainMenu(user);
+        }
     }
 }

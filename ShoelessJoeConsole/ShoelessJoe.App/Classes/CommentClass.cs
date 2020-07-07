@@ -83,8 +83,6 @@ namespace ShoelessJoe.App.Classes
                 Console.WriteLine("You have no potential sells");
                 Navigation.PressKeyToContenue(user);
             }
-
-            
         }
 
         public static void CommentDetails(int id, Users user)
@@ -98,6 +96,9 @@ namespace ShoelessJoe.App.Classes
             Console.WriteLine($" Potential Buyer: {comment.Buyer.FirstName } {comment.Buyer.LastName} \n Shoe Owner: {comment.Shoe.User.FirstName} {comment.Shoe.User.LastName}");
             Console.WriteLine();
             Console.WriteLine($" {comment.MessageHead} \n {comment.MessageBody}");
+
+            OptionsCommentDetails(comment, user);
+            StoreClass.MainMenu(user);
         }
 
         public static void SelectComment(Users user)
@@ -106,6 +107,63 @@ namespace ShoelessJoe.App.Classes
             int userSelect = int.Parse(Console.ReadLine());
             Navigation.BackToMainMenu(user, userSelect);
             CommentDetails(userSelect, user);
+        }
+
+        public static void OptionsCommentDetails(Comments comment, Users user)
+        {
+            Console.WriteLine("Below are a list of options you can perform. If you are the owner of the shoe. Casing doesn't matter");
+            Console.WriteLine();
+            if (comment.Shoe.User.UserId == user.UserId)
+            {
+                Console.WriteLine("If you are the owner of the shoe. You can type 'approve' to approve the sale");
+                Console.WriteLine("Or type 'deny' to deny the sale");
+            }
+            Console.WriteLine();
+            string[] options = { "Reply", "Cancel" };
+
+            for (int i = 0; i < options.Length; i++)
+            {
+                Console.WriteLine($" {options[i]}");
+                Console.WriteLine();
+            }
+            string userSelection = Console.ReadLine();
+            UserSelects(userSelection, comment, user);
+        }
+
+        public static void UserSelects(string option, Comments comment, Users user)
+        {
+            switch (option)
+            {
+                case "reply":
+                case "Reply":
+                    ReplyClass.CreateReply(comment, user);
+                    break;
+                case "cancel":
+                case "Cancel":
+                    Console.WriteLine("The comment will be deleted");
+                    break;
+                case "001":
+                    Navigation.BackToMainMenu(user, option);
+                    break;
+                case "approve":
+                case "Approve":
+                    if(comment.Shoe.User.UserId == user.UserId)
+                        Console.WriteLine("The comment was approved");
+                    else
+                        Console.WriteLine("You can not do that");
+                    break;
+                case "deny":
+                case "Deny":
+                    if (comment.Shoe.User.UserId == user.UserId)
+                        Console.WriteLine("The comment was denied");
+                    else
+                        Console.WriteLine("You can not do that");
+                    break;
+                default:
+                    Console.WriteLine("Not an option. Please try again");
+                    UserSelects(option, comment, user);
+                    break;
+            }
         }
     }
 }
