@@ -72,8 +72,6 @@ namespace ShoelessJoe.App.Classes
             Console.WriteLine();
 
             CommentClass.CurrentUserBuyComments(user);
-
-            PressKeyToContenue(user);
         }
 
         public static void PotentialSellcomments(Users user)
@@ -85,8 +83,7 @@ namespace ShoelessJoe.App.Classes
             Console.WriteLine();
 
             CommentClass.CurrentUserSellComment(user);
-
-            PressKeyToContenue(user);
+            
         }
 
         public static void UnderlineMessage(string message)
@@ -103,6 +100,12 @@ namespace ShoelessJoe.App.Classes
             Console.Write("Press any key to back to the main menu");
             Console.ReadLine();
             StoreClass.MainMenu(user);
+        }
+
+        public static void BackToMainMenu(Users user, int choice)
+        {
+            if (choice == 001)
+                StoreClass.MainMenu(user);
         }
     }
 }

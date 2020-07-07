@@ -44,15 +44,19 @@ namespace ShoelessJoe.App.Classes
                 .Where(a => a.Buyer.UserId == user.UserId)
                 .ToList();
 
-            if(currentUserBuyComments.Count == 0)
+            if(currentUserBuyComments.Count != 0)
             {
-                Console.WriteLine("You have no comments");
+                foreach (var item in currentUserBuyComments)
+                {
+                    Console.WriteLine($"{item.CommentId}. Comment Head: {item.MessageHead}  Shoe Owner: {item.Shoe.User.FirstName} {item.Shoe.User.LastName}");
+                    Console.WriteLine();
+                }
+                SelectComment(user);
             }
-
-            foreach (var item in currentUserBuyComments)
+            else
             {
-                Console.WriteLine($"{item.CommentId}. Comment Head: {item.MessageHead}  Shoe Owner: {item.Shoe.User.FirstName} {item.Shoe.User.LastName}");
-                Console.WriteLine();
+                Console.WriteLine("You have no potential buys");
+                Navigation.PressKeyToContenue(user);
             }
         }
 
@@ -65,16 +69,43 @@ namespace ShoelessJoe.App.Classes
                 .Where(a => a.Shoe.User.UserId == user.UserId)
                 .ToList();
 
-            if (currentUserBuyComments.Count == 0)
+            if (currentUserBuyComments.Count != 0)
             {
-                Console.WriteLine("You have no comments");
+                foreach (var item in currentUserBuyComments)
+                {
+                    Console.WriteLine($"{item.CommentId}. Comment Head: {item.MessageHead}  Potential Buyer: {item.Buyer.FirstName} {item.Buyer.LastName}");
+                    Console.WriteLine();
+                }
+                SelectComment(user);
+            }
+            else
+            {
+                Console.WriteLine("You have no potential sells");
+                Navigation.PressKeyToContenue(user);
             }
 
-            foreach (var item in currentUserBuyComments)
-            {
-                Console.WriteLine($"{item.CommentId}. Comment Head: {item.MessageHead}  Potential Buyer: {item.Buyer.FirstName} {item.Buyer.LastName}");
-                Console.WriteLine();
-            }
+            
+        }
+
+        public static void CommentDetails(int id, Users user)
+        {
+            var comment = ctx.Comments
+                .Include(u => u.Buyer)
+                .Include(s => s.Shoe)
+                .ThenInclude(u => u.User)
+                .FirstOrDefault(a => a.CommentId == id);
+
+            Console.WriteLine($" Potential Buyer: {comment.Buyer.FirstName } {comment.Buyer.LastName} \n Shoe Owner: {comment.Shoe.User.FirstName} {comment.Shoe.User.LastName}");
+            Console.WriteLine();
+            Console.WriteLine($" {comment.MessageHead} \n {comment.MessageBody}");
+        }
+
+        public static void SelectComment(Users user)
+        {
+            Console.Write("Select a comment (or press 001 to go back): ");
+            int userSelect = int.Parse(Console.ReadLine());
+            Navigation.BackToMainMenu(user, userSelect);
+            CommentDetails(userSelect, user);
         }
     }
 }

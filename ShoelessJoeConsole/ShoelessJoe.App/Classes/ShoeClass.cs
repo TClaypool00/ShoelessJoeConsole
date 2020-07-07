@@ -90,8 +90,7 @@ namespace ShoelessJoe.App.Classes
 
             Console.Write("Please enter a number a number (or press 001 to go back): ");
             int userNumber = int.Parse(Console.ReadLine());
-            if (userNumber == 001)
-                StoreClass.MainMenu(user);
+            Navigation.BackToMainMenu(user, userNumber);
                
             var shoe = ShoeDetails(userNumber, user);
 
