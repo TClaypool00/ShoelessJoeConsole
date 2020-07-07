@@ -35,13 +35,13 @@ namespace ShoelessJoe.App.Classes
             Thread.Sleep(500);
         }
 
-        public static void DeleteComment(int id)
+        public static void DeleteComment(Comments comment)
         {
-            var comment = ctx.Comments
+            comment = ctx.Comments
                 .Include(u => u.Buyer)
                 .Include(s => s.Shoe)
                 .ThenInclude(u => u.User)
-                .FirstOrDefault(a => a.CommentId == id);
+                .FirstOrDefault(a => a.CommentId == comment.CommentId);
             ctx.Comments.Remove(comment);
             ctx.SaveChanges();
             Console.WriteLine("Comment has been deleted");
@@ -152,7 +152,7 @@ namespace ShoelessJoe.App.Classes
                     break;
                 case "cancel":
                 case "Cancel":
-                    DeleteComment(comment.CommentId);
+                    DeleteComment(comment);
                     break;
                 case "001":
                     Navigation.BackToMainMenu(user, option);
@@ -160,7 +160,7 @@ namespace ShoelessJoe.App.Classes
                 case "approve":
                 case "Approve":
                     if (comment.Shoe.User.UserId == user.UserId)
-                        DeleteComment(comment.CommentId);
+                        DeleteComment(comment);
                     else
                     {
                         Console.WriteLine("You can not do that");
@@ -170,7 +170,7 @@ namespace ShoelessJoe.App.Classes
                 case "deny":
                 case "Deny":
                     if (comment.Shoe.User.UserId == user.UserId)
-                        DeleteComment(comment.CommentId);
+                        DeleteComment(comment);
                     else
                     {
                         Console.WriteLine("You can not do that");
