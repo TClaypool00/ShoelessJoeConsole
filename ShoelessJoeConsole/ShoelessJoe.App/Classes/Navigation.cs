@@ -73,7 +73,7 @@ namespace ShoelessJoe.App.Classes
             UnderlineMessage(myCommentsHeader);
             Console.WriteLine();
 
-            CommentClass.CurrentUserBuyComments(user);
+            CurrentUser.CurrentUserBuyComments(user);
         }
 
         public static void PotentialSellcomments(Users user)
@@ -84,7 +84,7 @@ namespace ShoelessJoe.App.Classes
             UnderlineMessage(mySellComments);
             Console.WriteLine();
 
-            CommentClass.CurrentUserSellComment(user);
+            CurrentUser.CurrentUserSellComment(user);
             
         }
 
