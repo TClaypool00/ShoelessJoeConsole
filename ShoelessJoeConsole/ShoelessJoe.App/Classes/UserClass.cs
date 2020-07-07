@@ -108,6 +108,7 @@ namespace ShoelessJoe.App.Classes
                 if (user.Password != password)
                 {
                     Console.WriteLine("Sorry Username and/or password is incorrect. Would you like to try again? (y/n)");
+                    return TryAgain();
                 }
                 return user;
             }
@@ -115,12 +116,7 @@ namespace ShoelessJoe.App.Classes
             {
                 Console.WriteLine();
                 Console.Write("Could find that user. Would you like to try again?(y/n) ");
-                string tryAgain = Console.ReadLine();
-
-                if (tryAgain == "y".ToLower())
-                    return LogIn();
-                else
-                    return Register();
+                return TryAgain();
             }
         }
 
@@ -167,6 +163,16 @@ namespace ShoelessJoe.App.Classes
                 Console.WriteLine("You must enter a number. Try again.");
                 return UserChooses(user);
             }
+        }
+
+        public static Users TryAgain()
+        {
+            string tryAgain = Console.ReadLine();
+
+            if (tryAgain == "y".ToLower())
+                return LogIn();
+            else
+                return Register();
         }
     }
 }
