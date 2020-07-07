@@ -59,8 +59,14 @@ namespace ShoelessJoe.App.Classes
 
             if (tryAgain == "y".ToLower())
                 return AuthSystem.LogIn();
-            else
+            else if(tryAgain == "n".ToLower())
                 return AuthSystem.Register();
+            else
+            {
+                Console.WriteLine("Not an option Try again");
+                return TryAgain();
+            }
+                
         }
     }
 }
