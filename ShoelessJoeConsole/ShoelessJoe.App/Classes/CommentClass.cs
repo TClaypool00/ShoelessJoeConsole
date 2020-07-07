@@ -109,6 +109,8 @@ namespace ShoelessJoe.App.Classes
             Console.WriteLine();
             Console.WriteLine($" {comment.MessageHead} \n {comment.MessageBody}");
 
+            ReplyClass.DisplyReplies(comment, user);
+
             OptionsCommentDetails(comment, user);
             StoreClass.MainMenu(user);
         }
@@ -123,7 +125,7 @@ namespace ShoelessJoe.App.Classes
 
         public static void OptionsCommentDetails(Comments comment, Users user)
         {
-            Console.WriteLine("Below are a list of options you can perform. If you are the owner of the shoe. Casing doesn't matter");
+            Console.WriteLine("Below are a list of options you can perform. (Type '001' to go back to the Main Menu) Casing doesn't matter");
             Console.WriteLine();
             if (comment.Shoe.User.UserId == user.UserId)
             {

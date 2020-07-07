@@ -117,6 +117,11 @@ namespace ShoelessJoe.App.Classes
                     .Include(u => u.User)
                     .FirstOrDefault(s => s.ShoeId == id);
 
+                string header = "Shoe Details";
+                Console.WriteLine();
+                Console.WriteLine(header);
+                Navigation.UnderlineMessage(header);
+                Console.WriteLine();
                 Console.WriteLine($" Manufacter: {shoe.Manufacter} \n Model: {shoe.Model} \n Color: {shoe.Color} \n {shoe.Gender} \n Left Size: {shoe.LeftSize} Right Size: {shoe.RightSize} \n Description: {shoe.Description} \n Owner: {shoe.User.FirstName} {shoe.User.LastName}");
 
                 Console.WriteLine();

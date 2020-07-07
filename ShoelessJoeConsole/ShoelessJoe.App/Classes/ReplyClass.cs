@@ -1,5 +1,7 @@
-﻿using ShoelessJoe.DataAccess.DataModels;
+﻿using Microsoft.EntityFrameworkCore;
+using ShoelessJoe.DataAccess.DataModels;
 using System;
+using System.Linq;
 using System.Threading;
 
 namespace ShoelessJoe.App.Classes
@@ -25,6 +27,27 @@ namespace ShoelessJoe.App.Classes
             Thread.Sleep(500);
         }
 
+        public static void DisplyReplies(Comments comment, Users user)
+        {
+            if (user is null)
+            {
+                Console.WriteLine("You must be logged in");
+                StoreClass.MainMenu(user);
+            }
 
+            var replies = ctx.Reply
+                .Include(u => u.ReplyUser)
+                .Include(c => c.Comment)
+                .Where(a => a.Comment.CommentId == comment.CommentId);
+            Console.WriteLine();
+            Console.WriteLine("List of replies");
+            Console.WriteLine();
+
+            foreach (var item in replies)
+            {
+                Console.WriteLine($"Body:{item.ReplyBody} \n Date: {item.ReplyDate} User: {item.ReplyUser.FirstName} {item.ReplyUser.LastName}");
+                Console.WriteLine();
+            }
+        }
     }
 }
