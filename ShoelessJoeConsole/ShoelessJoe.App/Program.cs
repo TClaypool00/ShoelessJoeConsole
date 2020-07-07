@@ -8,23 +8,31 @@ namespace ShoelessJoe.App
     {
         static void Main()
         {
-            Users currentUser;
-            
+            Users currentUser = new Users();
+
+            StartingPoint(currentUser);
+        }
+
+        static void StartingPoint(Users user)
+        {
             Console.Write("Have you been here before? (y/n) ");
             string userInput = Console.ReadLine();
             Console.WriteLine();
-            
+
             if (userInput == "y".ToLower())
-                currentUser = AuthSystem.LogIn();
-            else
+                user = AuthSystem.LogIn();
+            else if(userInput == "n".ToLower())
             {
                 AuthSystem.Register();
-                currentUser = AuthSystem.LogIn();
+                user = AuthSystem.LogIn();
+            }
+            else
+            {
+                Console.WriteLine("That's not an option. Try again");
+                StartingPoint(user);
             }
 
-            StoreClass.MainMenu(currentUser);
+            StoreClass.MainMenu(user);
         }
-
-
     }
 }
