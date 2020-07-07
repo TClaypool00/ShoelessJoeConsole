@@ -57,9 +57,11 @@ namespace ShoelessJoe.App.Classes
             Console.WriteLine(techPageHeader);
             UnderlineMessage(techPageHeader);
             Console.WriteLine();
-            Console.WriteLine(" This is the Tech Page Page!");
+            Console.WriteLine("About ShoelessJoe Console's Technical Side");
+            Console.WriteLine("This console application was written in C# and uses a database in 3rd Normalizatino. It is being hosted on Azure Portal, but it is written in SQL");
 
             Console.WriteLine();
+
             PressKeyToContenue(user);
         }
 

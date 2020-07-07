@@ -96,7 +96,7 @@ namespace ShoelessJoe.App.Classes
 
             foreach (var item in shoes)
             {
-                Console.WriteLine($"{item.ShoeId}. Manufacter: {item.IsSold} Model: {item.BothShoes} Owner: {item.User.FirstName} {item.User.LastName}");
+                Console.WriteLine($"{item.ShoeId}. Manufacter: {item.Manufacter} Model: {item.Model} Owner: {item.User.FirstName} {item.User.LastName}");
                 Console.WriteLine();
             }
 
