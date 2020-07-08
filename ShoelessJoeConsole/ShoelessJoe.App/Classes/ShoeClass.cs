@@ -181,7 +181,7 @@ namespace ShoelessJoe.App.Classes
             }
             catch(NullReferenceException)
             {
-                Console.Write("Shoe Does not exist. Try again: ");
+                Console.Write("Shoe Does not exist. Press any button to try again: ");
                 string shoeError = Console.ReadLine();
 
                 return DisplayShoe(user);

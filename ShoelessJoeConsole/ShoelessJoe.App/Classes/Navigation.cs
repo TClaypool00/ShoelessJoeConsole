@@ -23,7 +23,7 @@ namespace ShoelessJoe.App.Classes
             Console.WriteLine();
             PressKeyToContenue(user);
         }
-        
+
         public static void BrowsePage(Users user)
         {
             string browseHeader = "Browse Page";

@@ -48,7 +48,7 @@ namespace ShoelessJoe.App.Classes
                 newUser.Street = Console.ReadLine();
                 Console.WriteLine();
 
-                Console.Write("Please enter your zip code: ");
+                Console.Write("Please enter your zip code   : ");
                 newUser.Zip = int.Parse(Console.ReadLine());
                 Console.WriteLine();
 
@@ -71,6 +71,7 @@ namespace ShoelessJoe.App.Classes
             {
                 Console.WriteLine("Something went wrong. Would you like to try again? (y/n)");
                 string input = Console.ReadLine();
+
                 if (input == "y".ToLower())
                     return Register();
                 else

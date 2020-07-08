@@ -12,27 +12,41 @@ namespace ShoelessJoe.App.Classes
 
         public static void AddComment(Users user, int id)
         {
-            var newComment = new Comments();
+            try
+            {
+                var newComment = new Comments();
 
-            Console.Write("Enter a comment Head (Like a subject in an email): ");
-            newComment.MessageHead = Console.ReadLine();
-            Console.WriteLine();
+                Console.Write("Enter a comment Head (Like a subject in an email): ");
+                newComment.MessageHead = Console.ReadLine();
+                Console.WriteLine();
 
-            Console.Write("Enter a comment Body (Like the actual email): ");
-            newComment.MessageBody = Console.ReadLine();
-            Console.WriteLine();
+                Console.Write("Enter a comment Body (Like the actual email): ");
+                newComment.MessageBody = Console.ReadLine();
+                Console.WriteLine();
 
-            newComment.CommentDate = new DateTime();
+                newComment.CommentDate = new DateTime();
 
-            newComment.IsApproved = 0;
+                newComment.IsApproved = 0;
 
-            newComment.ShoeId = id;
+                newComment.ShoeId = id;
 
-            newComment.BuyerId = user.UserId;
+                newComment.BuyerId = user.UserId;
 
-            ctx.Comments.Add(newComment);
-            ctx.SaveChanges();
-            Thread.Sleep(500);
+                ctx.Comments.Add(newComment);
+                ctx.SaveChanges();
+                Thread.Sleep(500);
+            }
+            catch(Exception)
+            {
+                Console.WriteLine("Something went wrong. Would you like to try again? (y/n)");
+                string input = Console.ReadLine();
+
+                if (input == "y".ToLower())
+                    AddComment(user, id);
+                else
+                    StoreClass.MainMenu(user);
+
+            }
         }
 
         public static void DeleteComment(Comments comment)
