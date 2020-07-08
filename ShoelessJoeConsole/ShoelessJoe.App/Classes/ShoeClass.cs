@@ -69,7 +69,7 @@ namespace ShoelessJoe.App.Classes
 
         public static bool BothShoes(Shoes currentShoe)
         {
-            Console.WriteLine("Are you selling both shoes (y/n) ");
+            Console.Write("Are you selling both shoes (y/n) ");
             string bothShoesUserInput = Console.ReadLine();
             Console.WriteLine();
 
@@ -83,7 +83,7 @@ namespace ShoelessJoe.App.Classes
 
         public static bool CheckGenderOfShoe(Shoes currentShoe)
         {
-            Console.WriteLine("Is the shoe(s) for men or women");
+            Console.Write("Is the shoe(s) for men or women");
             string genderOfShoeInput = Console.ReadLine();
             Console.WriteLine();
 
