@@ -96,6 +96,18 @@ namespace ShoelessJoe.App.Classes
             UserSelects(userSelection, comment, user);
         }
 
+        public static void DeleteCommentsByShoe(Shoes shoe)
+        {
+            var comments = ctx.Comments
+                .Include(u => u.Buyer)
+                .Include(s => s.Shoe)
+                .ThenInclude(d => d.User)
+                .Where(a => a.Shoe.ShoeId == shoe.ShoeId);
+
+            ctx.Remove(comments);
+            ctx.SaveChanges();
+        }
+
         public static void UserSelects(string option, Comments comment, Users user)
         {
             switch (option)

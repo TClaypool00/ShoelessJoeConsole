@@ -15,54 +15,67 @@ namespace ShoelessJoe.App.Classes
         /// <returns> returns the new user </returns>
         public static Users Register()
         {
-            using var ctx = new ShoelessJoeContext();
-            var newUser = new Users();
+            try
+            {
+                using var ctx = new ShoelessJoeContext();
+                var newUser = new Users();
 
-            Console.Write("Please ener your first Name: ");
-            newUser.FirstName = Console.ReadLine();
-            Console.WriteLine();
+                Console.Write("Please ener your first Name: ");
+                newUser.FirstName = Console.ReadLine();
+                Console.WriteLine();
 
-            Console.Write("Please enter your last name: ");
-            newUser.LastName = Console.ReadLine();
-            Console.WriteLine();
+                Console.Write("Please enter your last name: ");
+                newUser.LastName = Console.ReadLine();
+                Console.WriteLine();
 
-            Console.Write("Please enter your email address: ");
-            newUser.Email = Console.ReadLine();
-            Console.WriteLine();
+                Console.Write("Please enter your email address: ");
+                newUser.Email = Console.ReadLine();
+                Console.WriteLine();
 
-            var userPassword = CheckPassword(newUser);
+                var userPassword = CheckPassword(newUser);
 
-            newUser.IsAdmin = false;
+                newUser.IsAdmin = false;
 
-            Console.Write("Please enter your street address: ");
-            newUser.Street = Console.ReadLine();
-            Console.WriteLine();
+                Console.Write("Please enter your street address: ");
+                newUser.Street = Console.ReadLine();
+                Console.WriteLine();
 
-            Console.Write("Please enter the city you leave in: ");
-            newUser.City = Console.ReadLine();
-            Console.WriteLine();
+                Console.Write("Please enter the city you leave in: ");
+                newUser.City = Console.ReadLine();
+                Console.WriteLine();
 
-            Console.Write("Please enter your state: ");
-            newUser.Street = Console.ReadLine();
-            Console.WriteLine();
+                Console.Write("Please enter your state: ");
+                newUser.Street = Console.ReadLine();
+                Console.WriteLine();
 
-            Console.Write("Please enter your zip code: ");
-            newUser.Zip = int.Parse(Console.ReadLine());
-            Console.WriteLine();
+                Console.Write("Please enter your zip code: ");
+                newUser.Zip = int.Parse(Console.ReadLine());
+                Console.WriteLine();
 
-            newUser.IsAdmin = false;
+                newUser.IsAdmin = false;
 
-            Console.Write("Please enter your phone number: ");
-            newUser.PhoneNumber = Console.ReadLine();
-            Console.WriteLine();
+                Console.Write("Please enter your phone number: ");
+                newUser.PhoneNumber = Console.ReadLine();
+                Console.WriteLine();
 
-            ctx.Users.Add(newUser);
-            ctx.SaveChanges();
-            Thread.Sleep(500);
+                ctx.Users.Add(newUser);
+                ctx.SaveChanges();
+                Thread.Sleep(500);
 
-            Console.WriteLine("You have sucessfully regeristered");
+                Console.WriteLine("You have sucessfully regeristered");
 
-            return newUser;
+
+                return newUser;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Something went wrong. Would you like to try again? (y/n)");
+                string input = Console.ReadLine();
+                if (input == "y".ToLower())
+                    return Register();
+                else
+                    return LogIn();
+            }
         }
 
         /// <summary>

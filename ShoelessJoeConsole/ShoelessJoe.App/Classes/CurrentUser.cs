@@ -28,7 +28,7 @@ namespace ShoelessJoe.App.Classes
             }
             else
             {
-                Console.WriteLine("You have no potential buys");
+                Console.WriteLine("You have no shoes");
                 Navigation.PressKeyToContenue(user);
             }
             
@@ -36,51 +36,69 @@ namespace ShoelessJoe.App.Classes
 
         public static void CurrentUserBuyComments(Users user)
         {
-            var currentUserBuyComments = ctx.Comments
-                .Include(u => u.Buyer)
-                .Include(s => s.Shoe)
-                .ThenInclude(u => u.User)
-                .Where(a => a.Buyer.UserId == user.UserId)
-                .ToList();
+            try
+            {
+                var currentUserBuyComments = ctx.Comments
+                    .Include(u => u.Buyer)
+                    .Include(s => s.Shoe)
+                    .ThenInclude(u => u.User)
+                    .Where(a => a.Buyer.UserId == user.UserId)
+                    .ToList();
 
-            if (currentUserBuyComments.Count != 0)
-            {
-                foreach (var item in currentUserBuyComments)
+                if (currentUserBuyComments.Count != 0)
                 {
-                    Console.WriteLine($"{item.CommentId}. Comment Head: {item.MessageHead}  Shoe Owner: {item.Shoe.User.FirstName} {item.Shoe.User.LastName}");
-                    Console.WriteLine();
+                    foreach (var item in currentUserBuyComments)
+                    {
+                        Console.WriteLine($"{item.CommentId}. Comment Head: {item.MessageHead}  Shoe Owner: {item.Shoe.User.FirstName} {item.Shoe.User.LastName}");
+                        Console.WriteLine();
+                    }
+                    CommentClass.SelectComment(user);
                 }
-                CommentClass.SelectComment(user);
+                else
+                {
+                    Console.WriteLine("You have no potential buys");
+                    Navigation.PressKeyToContenue(user);
+                }
             }
-            else
+            catch(NullReferenceException)
             {
-                Console.WriteLine("You have no potential buys");
-                Navigation.PressKeyToContenue(user);
+                Console.WriteLine();
+                Console.WriteLine("Comment does not exsist. Try again");
+                CurrentUserBuyComments(user);
             }
         }
 
         public static void CurrentUserSellComment(Users user)
         {
-            var currentUserBuyComments = ctx.Comments
-                .Include(u => u.Buyer)
-                .Include(s => s.Shoe)
-                .ThenInclude(u => u.User)
-                .Where(a => a.Shoe.User.UserId == user.UserId)
-                .ToList();
+            try
+            {
+                var currentUserBuyComments = ctx.Comments
+                    .Include(u => u.Buyer)
+                    .Include(s => s.Shoe)
+                    .ThenInclude(u => u.User)
+                    .Where(a => a.Shoe.User.UserId == user.UserId)
+                    .ToList();
 
-            if (currentUserBuyComments.Count != 0)
-            {
-                foreach (var item in currentUserBuyComments)
+                if (currentUserBuyComments.Count != 0)
                 {
-                    Console.WriteLine($"{item.CommentId}. Comment Head: {item.MessageHead}  Potential Buyer: {item.Buyer.FirstName} {item.Buyer.LastName}");
-                    Console.WriteLine();
+                    foreach (var item in currentUserBuyComments)
+                    {
+                        Console.WriteLine($"{item.CommentId}. Comment Head: {item.MessageHead}  Potential Buyer: {item.Buyer.FirstName} {item.Buyer.LastName}");
+                        Console.WriteLine();
+                    }
+                    CommentClass.SelectComment(user);
                 }
-                CommentClass.SelectComment(user);
+                else
+                {
+                    Console.WriteLine("You have no potential sells");
+                    Navigation.PressKeyToContenue(user);
+                }
             }
-            else
+            catch(NullReferenceException)
             {
-                Console.WriteLine("You have no potential sells");
-                Navigation.PressKeyToContenue(user);
+                Console.WriteLine();
+                Console.WriteLine("Comment does not exsist. Try again");
+                CurrentUserSellComment(user);
             }
         }
     }
