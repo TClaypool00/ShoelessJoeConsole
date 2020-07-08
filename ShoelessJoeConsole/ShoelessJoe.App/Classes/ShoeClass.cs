@@ -107,6 +107,7 @@ namespace ShoelessJoe.App.Classes
 
                 ctx.Shoes.Remove(shoe);
                 ctx.SaveChanges();
+                StoreClass.MainMenu(user);
 
                 return shoe;
             }
