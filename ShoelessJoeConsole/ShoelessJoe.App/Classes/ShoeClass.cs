@@ -24,6 +24,10 @@ namespace ShoelessJoe.App.Classes
                 newShoe.Model = Console.ReadLine();
                 Console.WriteLine();
 
+                Console.Write("What color are they? ");
+                newShoe.Color = Console.ReadLine();
+                Console.WriteLine();
+
                 BothShoes(newShoe);
 
                 CheckGenderOfShoe(newShoe);
@@ -50,10 +54,11 @@ namespace ShoelessJoe.App.Classes
                 ctx.SaveChanges();
                 Thread.Sleep(500);
             }
-            catch(Exception)
+            catch(Exception e)
             {
                 Console.WriteLine();
                 Console.Write("Something went wrong. Would you like to try again ");
+                Console.WriteLine(e);
                 string userinput = Console.ReadLine();
                 if (userinput == "y".ToLower())
                     AddShoe(currentUseer);
@@ -64,7 +69,7 @@ namespace ShoelessJoe.App.Classes
 
         public static bool BothShoes(Shoes currentShoe)
         {
-            Console.WriteLine("Are you selling 1 shoe or 2 shoes");
+            Console.WriteLine("Are you selling both shoes (y/n) ");
             string bothShoesUserInput = Console.ReadLine();
             Console.WriteLine();
 
@@ -90,21 +95,32 @@ namespace ShoelessJoe.App.Classes
             return currentShoe.Gender;
         }
 
-        public static Shoes DeleteShoe(Shoes shoe)
+        public static Shoes DeleteShoe(Shoes shoe, Users user)
         {
+            try
+            {
+                shoe = ctx.Shoes
+                    .Include(u => u.User)
+                    .FirstOrDefault(a => a.ShoeId == shoe.ShoeId);
 
-            CommentClass.DeleteCommentsByShoe(shoe);
+                CommentClass.DeleteCommentsByShoe(shoe);
 
-            shoe = ctx.Shoes
-                .Include(u => u.User)
-                .FirstOrDefault(a => a.ShoeId == shoe.ShoeId);
+                ctx.Shoes.Remove(shoe);
+                ctx.SaveChanges();
 
-            CommentClass.DeleteCommentsByShoe(shoe);
+                return shoe;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+                Console.Write("Press enter to try again");
+                Console.ReadLine();
+                Console.WriteLine();
 
-            ctx.Shoes.Remove(shoe);
-            ctx.SaveChanges();
+                return DisplayShoe(user);
+            }
 
-            return shoe;
+            
         }
 
         public static Shoes DisplayShoe(Users user)
@@ -168,7 +184,7 @@ namespace ShoelessJoe.App.Classes
                     Console.WriteLine("Or go back to my shoes by typing 'shoes'");
                     userSelect = Console.ReadLine();
                     if (userSelect == "delete".ToLower())
-                        return DeleteShoe(shoe);
+                        return DeleteShoe(shoe, user);
                     else if(userSelect == "shoes".ToLower())
                         return DisplayShoe(user);
                     else

@@ -66,7 +66,8 @@ namespace ShoelessJoe.App.Classes
             }
             catch(Exception e)
             {
-                Console.WriteLine($"Somehting went wrong. {e} Try again.");
+                Console.WriteLine($"Somehting went wrong. {e}");
+                Console.WriteLine("Press Enter to Try again");
                 Console.ReadLine();
                 CommentDetails(comment.CommentId, user);
             }
@@ -126,6 +127,11 @@ namespace ShoelessJoe.App.Classes
                 .Include(s => s.Shoe)
                 .ThenInclude(d => d.User)
                 .Where(a => a.Shoe.ShoeId == shoe.ShoeId);
+
+            foreach (var item in comments)
+            {
+                ReplyClass.DeleteRepliesByComment(item);
+            }
 
             ctx.Comments.RemoveRange(comments);
             ctx.SaveChanges();
