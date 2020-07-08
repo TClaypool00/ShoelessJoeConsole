@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShoelessJoe.DataAccess.DataModels;
 using System;
+using System.Collections;
 using System.Linq;
 using System.Threading;
 
@@ -71,8 +72,10 @@ namespace ShoelessJoe.App.Classes
                 .ThenInclude(a => a.User)
                 .Where(a => a.Comment.CommentId == comment.CommentId);
 
-            ctx.Remove(replies);
+
+            ctx.Reply.RemoveRange(replies);
             ctx.SaveChanges();
+
         }
     }
 }
