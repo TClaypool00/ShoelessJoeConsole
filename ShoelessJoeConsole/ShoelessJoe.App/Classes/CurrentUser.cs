@@ -20,7 +20,9 @@ namespace ShoelessJoe.App.Classes
             {
                 foreach (var item in myShoes)
                 {
-                    Console.WriteLine($"{item.ShoeId}. Manufacter: {item.Manufacter}  Model: {item.Model} Both Shoes? {item.BothShoes}");
+                    string bothShoes = ShoeClass.CovertBothShoesOrIsSoldToString(item.BothShoes);
+
+                    Console.WriteLine($"{item.ShoeId}. Manufacter: {item.Manufacter}  Model: {item.Model} Both Shoes? {bothShoes}");
                     Console.WriteLine();
                     int number = ShoeClass.UserOptions(user);
                     ShoeClass.ShoeDetails(number, user);

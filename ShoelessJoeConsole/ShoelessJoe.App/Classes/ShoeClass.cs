@@ -160,12 +160,17 @@ namespace ShoelessJoe.App.Classes
                     .Include(u => u.User)
                     .FirstOrDefault(s => s.ShoeId == id);
 
+                string isSold = CovertBothShoesOrIsSoldToString(shoe.IsSold);
+                string bothShoes = CovertBothShoesOrIsSoldToString(shoe.BothShoes);
+                string gender = GenderShoesToString(shoe.Gender);
+
+
                 string header = "Shoe Details";
                 Console.WriteLine();
                 Console.WriteLine(header);
                 Navigation.UnderlineMessage(header);
                 Console.WriteLine();
-                Console.WriteLine($" Manufacter: {shoe.Manufacter} \n Model: {shoe.Model} \n Color: {shoe.Color} \n {shoe.Gender} \n Left Size: {shoe.LeftSize} Right Size: {shoe.RightSize} \n Description: {shoe.Description} \n Owner: {shoe.User.FirstName} {shoe.User.LastName}");
+                Console.WriteLine($" Manufacter: {shoe.Manufacter} \n Model: {shoe.Model} \n Color: {shoe.Color} \n  Both shoes? {bothShoes} \n Left Size: {shoe.LeftSize}\n {gender} \n Avaliable {isSold} \n Right Size: {shoe.RightSize} \n Description: {shoe.Description} \n Owner: {shoe.User.FirstName} {shoe.User.LastName}");
 
                 Console.WriteLine();
                 string userSelect;
@@ -220,6 +225,22 @@ namespace ShoelessJoe.App.Classes
                 Console.WriteLine("You have to enter a number. Try again");
                 return UserOptions(user);
             }
+        }
+
+        public static string CovertBothShoesOrIsSoldToString(bool boolean)
+        {
+            if (boolean == true)
+                return "Yes";
+            else
+                return "No";
+        }
+
+        public static string GenderShoesToString(bool gender)
+        {
+            if (gender == true)
+                return "Men's";
+            else
+                return "Women's";
         }
     }
 }
