@@ -170,9 +170,19 @@ namespace ShoelessJoe.App.Classes
                 Console.WriteLine($"{item.FoodGroupId}. {item.FoodGroups}");
             }
 
-            int selection = int.Parse(Console.ReadLine());
-            var food = FoodClass.GetGroup(selection);
+            Console.WriteLine($"{foods.Count + 1}. My Orders");
 
+            Console.Write("Please select a number: ");
+            int selection = int.Parse(Console.ReadLine());
+            var group = FoodClass.GetGroup(selection);
+            var foodByGroup = FoodClass.GetFoodsByGroup(group.FoodGroupId);
+            FoodClass.DisplayFood(foodByGroup);
+            Console.Write("Please select a number: ");
+
+            int foodSelect = int.Parse(Console.ReadLine());
+            var food = FoodClass.GetFoodById(foodSelect);
+
+            OrderClass.AddOrder(user, store, food);
         }
 
         public static void UnderlineMessage(string message)

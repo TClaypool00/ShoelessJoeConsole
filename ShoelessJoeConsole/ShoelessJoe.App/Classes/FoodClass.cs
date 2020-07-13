@@ -1,4 +1,5 @@
-﻿using ShoelessJoe.DataAccess.DataModels;
+﻿using Microsoft.EntityFrameworkCore;
+using ShoelessJoe.DataAccess.DataModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,6 +77,33 @@ namespace ShoelessJoe.App.Classes
                 .FirstOrDefault(f => f.FoodGroupId == id);
 
             return food;
+        }
+
+        public static List<Foods> GetFoodsByGroup(int id)
+        {
+            var foods = ctx.Foods
+                .Include(f => f.FoodGroup)
+                .Where(s => s.FoodGroupId == id)
+                .ToList();
+
+            return foods;
+        }
+
+        public static Foods GetFoodById(int id)
+        {
+            var food = ctx.Foods
+                .Include(f => f.FoodGroup)
+                .FirstOrDefault(f => f.FoodId == id);
+
+            return food;
+        }
+
+        public static void DisplayFood(List<Foods> foods)
+        {
+            foreach (var item in foods)
+            {
+                Console.WriteLine($"{item.FoodId}. {item.FoodTitle} {item.FoodGroup.FoodGroups} {item.Price:C2}");
+            }
         }
     }
 }
