@@ -8,6 +8,7 @@ namespace ShoelessJoe.DataAccess.DataModels
         public Users()
         {
             Comments = new HashSet<Comments>();
+            Orders = new HashSet<Orders>();
             Reply = new HashSet<Reply>();
             Shoes = new HashSet<Shoes>();
         }
@@ -25,6 +26,7 @@ namespace ShoelessJoe.DataAccess.DataModels
         public string PhoneNumber { get; set; }
 
         public virtual ICollection<Comments> Comments { get; set; }
+        public virtual ICollection<Orders> Orders { get; set; }
         public virtual ICollection<Reply> Reply { get; set; }
         public virtual ICollection<Shoes> Shoes { get; set; }
     }
