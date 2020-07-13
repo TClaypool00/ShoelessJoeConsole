@@ -43,6 +43,24 @@ namespace ShoelessJoe.App.Classes
                             UserChooses(user);
                         }
                         break;
+                    case 9:
+                        if (user.IsAdmin == true)
+                            Navigation.AddGroup(user);
+                        else
+                        {
+                            Console.WriteLine("You can not do that. Try again");
+                            UserChooses(user);
+                        }
+                        break;
+                    case 10:
+                        if (user.IsAdmin == true)
+                            Navigation.AddFood(user);
+                        else
+                        {
+                            Console.WriteLine("Try again.");
+                            UserChooses(user);
+                        }
+                        break;
                     case 0:
                         Console.WriteLine("Good-bye! Come again!");
                         Environment.Exit(0);

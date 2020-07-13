@@ -109,6 +109,26 @@ namespace ShoelessJoe.App.Classes
             StoreClass.AddStore(user);
         }
 
+        public static void AddGroup(Users user)
+        {
+            string header = "Add a Food Group";
+
+            Console.WriteLine(header);
+            UnderlineMessage(header);
+            Console.WriteLine();
+            FoodClass.AddFoodGroup(user);
+        }
+
+        public static void AddFood(Users user)
+        {
+            string header = "Add a food";
+
+            Console.WriteLine(header);
+            UnderlineMessage(header);
+            Console.WriteLine();
+            FoodClass.AddFood(user);
+        }
+
         public static void MainMenu(Users user)
         {
             Console.WriteLine($"Hello, {user.FirstName}!");
@@ -123,14 +143,36 @@ namespace ShoelessJoe.App.Classes
                 Console.WriteLine($"{i + 1}. {menuSelection[i]}");
             }
 
-            if(user.IsAdmin == true)
+            if (user.IsAdmin == true)
+            {
                 Console.WriteLine("8. Add Store");
+                Console.WriteLine("9. Add a food Group");
+                Console.WriteLine("10. Add a Food");
+            }
 
             Console.WriteLine("0. Exit");
             Console.WriteLine();
 
             userOptions.UserChooses(user);
             Console.WriteLine();
+        }
+
+        public static void Menu(Users user, Stores store)
+        {
+            var foods = FoodClass.GetGroups();
+
+            Console.WriteLine($"Welcome {user.FirstName} to the restruant on {store.Street} in {store.State}");
+            Console.WriteLine();
+            Console.WriteLine("Below is a list of the food types we offer.");
+
+            foreach (var item in foods)
+            {
+                Console.WriteLine($"{item.FoodGroupId}. {item.FoodGroups}");
+            }
+
+            int selection = int.Parse(Console.ReadLine());
+            var food = FoodClass.GetGroup(selection);
+
         }
 
         public static void UnderlineMessage(string message)

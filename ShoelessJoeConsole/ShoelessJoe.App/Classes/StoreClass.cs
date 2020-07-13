@@ -1,5 +1,6 @@
 ﻿using ShoelessJoe.DataAccess.DataModels;
 using System;
+using System.Linq;
 using System.Threading;
 
 namespace ShoelessJoe.App.Classes
@@ -47,6 +48,36 @@ namespace ShoelessJoe.App.Classes
             {
                 Console.WriteLine(e);
                 Navigation.PressKeyToContenue(user);
+            }
+        }
+
+        public static Stores SelectStore(Users user)
+        {
+            try
+            {
+                var stores = ctx.Stores
+                .ToList();
+
+                foreach (var item in stores)
+                {
+                    Console.WriteLine($"{item.StoreId}. {item.Street} {item.City}, {item.State} {item.ZipCode} ");
+                }
+
+                Console.Write("Select a Store: ");
+                int select = int.Parse(Console.ReadLine());
+
+                if (select == 5)
+                    Navigation.MainMenu(user);
+
+                var store = ctx.Stores.First(s => s.StoreId == select);
+                return store;
+            }
+            catch (Exception)
+            {
+                Console.Write("Store does not exsist. Try again");
+                Console.ReadLine();
+                Console.WriteLine();
+                return SelectStore(user);
             }
         }
     }
