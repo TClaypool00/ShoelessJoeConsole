@@ -34,6 +34,15 @@ namespace ShoelessJoe.App.Classes
                     case 7:
                         Navigation.MyShoes(user);
                         break;
+                    case 8:
+                        if (user.IsAdmin == true)
+                            Navigation.AddStore(user);
+                        else
+                        {
+                            Console.WriteLine("You can cannot do that. Try again.");
+                            UserChooses(user);
+                        }
+                        break;
                     case 0:
                         Console.WriteLine("Good-bye! Come again!");
                         Environment.Exit(0);

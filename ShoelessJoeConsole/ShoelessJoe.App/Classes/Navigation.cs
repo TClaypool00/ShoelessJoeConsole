@@ -34,7 +34,7 @@ namespace ShoelessJoe.App.Classes
             ShoeClass.DisplayShoe(user);
 
             Console.WriteLine();
-            StoreClass.MainMenu(user);
+            MainMenu(user);
         }
 
         public static void ShoeFormPage(Users user)
@@ -99,6 +99,40 @@ namespace ShoelessJoe.App.Classes
             CurrentUser.MyShoes(user);
         }
 
+        public static void AddStore(Users user)
+        {
+            string addStore = "Add a store";
+
+            Console.WriteLine(addStore);
+            UnderlineMessage(addStore);
+            Console.WriteLine();
+            StoreClass.AddStore(user);
+        }
+
+        public static void MainMenu(Users user)
+        {
+            Console.WriteLine($"Hello, {user.FirstName}!");
+            Console.WriteLine();
+            var userOptions = new UserClass();
+            string[] menuSelection = { "About Page", "Browse Page", "Shoe Form", "Tech Page", "My Potential Buys", "My Potential Sells", "My Shoes" };
+
+            Console.WriteLine("Below are a list of the following pages you can visit");
+
+            for (int i = 0; i <= menuSelection.Length - 1; i++)
+            {
+                Console.WriteLine($"{i + 1}. {menuSelection[i]}");
+            }
+
+            if(user.IsAdmin == true)
+                Console.WriteLine("8. Add Store");
+
+            Console.WriteLine("0. Exit");
+            Console.WriteLine();
+
+            userOptions.UserChooses(user);
+            Console.WriteLine();
+        }
+
         public static void UnderlineMessage(string message)
         {
             for (int i = 0; i <= message.Length; i++)
@@ -112,19 +146,19 @@ namespace ShoelessJoe.App.Classes
         {
             Console.Write("Press any key to back to the main menu");
             Console.ReadLine();
-            StoreClass.MainMenu(user);
+            MainMenu(user);
         }
 
         public static void BackToMainMenu(Users user, int choice)
         {
             if (choice == 001)
-                StoreClass.MainMenu(user);
+                MainMenu(user);
         }
 
         public static void BackToMainMenu(Users user, string choice)
         {
             if (choice == "001")
-                StoreClass.MainMenu(user);
+                MainMenu(user);
         }
     }
 }

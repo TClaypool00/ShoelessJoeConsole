@@ -44,7 +44,7 @@ namespace ShoelessJoe.App.Classes
                 if (input == "y".ToLower())
                     AddComment(user, id);
                 else
-                    StoreClass.MainMenu(user);
+                    Navigation.MainMenu(user);
 
             }
         }
@@ -88,7 +88,7 @@ namespace ShoelessJoe.App.Classes
             ReplyClass.DisplyReplies(comment, user);
 
             OptionsCommentDetails(comment, user);
-            StoreClass.MainMenu(user);
+            Navigation.MainMenu(user);
         }
 
         public static void SelectComment(Users user)

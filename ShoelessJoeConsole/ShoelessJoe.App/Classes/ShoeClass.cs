@@ -63,7 +63,7 @@ namespace ShoelessJoe.App.Classes
                 if (userinput == "y".ToLower())
                     AddShoe(currentUseer);
                 else
-                    StoreClass.MainMenu(currentUseer);
+                    Navigation.MainMenu(currentUseer);
             }
         }
 
@@ -107,7 +107,7 @@ namespace ShoelessJoe.App.Classes
 
                 ctx.Shoes.Remove(shoe);
                 ctx.SaveChanges();
-                StoreClass.MainMenu(user);
+                Navigation.MainMenu(user);
 
                 return shoe;
             }

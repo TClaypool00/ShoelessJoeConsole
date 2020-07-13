@@ -32,7 +32,7 @@ namespace ShoelessJoe.App
                 StartingPoint(user);
             }
 
-            StoreClass.MainMenu(user);
+            Navigation.MainMenu(user);
         }
     }
 }

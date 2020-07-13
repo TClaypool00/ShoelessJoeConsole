@@ -45,7 +45,7 @@ namespace ShoelessJoe.App.Classes
             if (user is null)
             {
                 Console.WriteLine("You must be logged in");
-                StoreClass.MainMenu(user);
+                Navigation.MainMenu(user);
             }
 
             var replies = ctx.Reply
